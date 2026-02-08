@@ -8,7 +8,7 @@ p.setGravity(0,0,-9.8,physicsClient)
 planeId = p.loadURDF("plane.urdf")
 robotId = p.loadURDF("body2.urdf")
 p.loadSDF("world.sdf")
-for i in range(0, 1000):
+for i in range(0, 2000):
     p.stepSimulation()
     print(i)
     time.sleep(1/60)
