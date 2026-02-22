@@ -4,14 +4,11 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy
 import random
+import constants as c
+from simulation import SIMULATION
 
-BLamplitude = numpy.pi / 6
-BLfrequency = 10
-BLphaseOffset = 0
 
-FLamplitude = numpy.pi / 6
-FLfrequency = 10
-FLphaseOffset = numpy.pi / 2
+"""
 
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -25,8 +22,8 @@ pyrosim.Prepare_To_Simulate(robotId)
 BLtargetAngles = numpy.zeros(1000)
 FLtargetAngles = numpy.zeros(1000)
 for i in range(0, 1000):
-    BLtargetAngles[i] = BLamplitude * numpy.sin(BLfrequency * ((i / (2 * numpy.pi) * .0395)) + BLphaseOffset)
-    FLtargetAngles[i] = FLamplitude * numpy.sin(FLfrequency * ((i / (2 * numpy.pi) * .0395)) + FLphaseOffset)
+    BLtargetAngles[i] = c.BLamplitude * numpy.sin(c.BLfrequency * ((i / (2 * numpy.pi) * .0395)) + c.BLphaseOffset)
+    FLtargetAngles[i] = c.FLamplitude * numpy.sin(c.FLfrequency * ((i / (2 * numpy.pi) * .0395)) + c.FLphaseOffset)
 # targetAngles = numpy.sin(input * numpy.pi / 180. ) * numpy.pi / 4
 # numpy.save('data/targetAngles2.npy', targetAngles)
 numpy.save('data/targetAnglesBL.npy', BLtargetAngles)
@@ -52,3 +49,7 @@ numpy.save('data/backLegSensorValues.npy', backLegSensorValues)
 numpy.save('data/frontLegSensorValues.npy', frontLegSensorValues)
 p.disconnect()
 print(backLegSensorValues)
+"""
+
+simulation = SIMULATION()
+simulation.Run()
