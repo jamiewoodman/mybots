@@ -24,6 +24,10 @@ NNDF_FILETYPE   = 2
 
 # global linkNamesToIndices
 
+jointNamesToIndices = {}
+
+linkNamesToIndices = {}
+
 def End():
 
     if filetype == SDF_FILETYPE:

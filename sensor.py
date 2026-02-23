@@ -7,6 +7,10 @@ class SENSOR:
         self.values = numpy.zeros(1000)
 
     def Get_Value(self, t):
-        self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
-        if t == 1000 - 1:
-            print(self.values)
+        try:
+            self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)
+        except TypeError:
+            self.values[t] = -1.0
+
+    def Save_Values(self):
+        numpy.save('data/' + self.linkName + '_sensorValues.npy', self.values)
