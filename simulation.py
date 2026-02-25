@@ -4,6 +4,7 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import time
+from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class SIMULATION:
     def __init__(self):
@@ -22,6 +23,7 @@ class SIMULATION:
             
             p.stepSimulation()
             self.robot.Sense(t)
+            self.robot.Think()
             self.robot.Act(t)
             time.sleep(1/600)
         
