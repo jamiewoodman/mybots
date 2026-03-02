@@ -54,6 +54,10 @@ def Get_Touch_Sensor_Value_For_Link(linkName):
 
     pts = p.getContactPoints()
 
+    if pts is None:
+        
+        return touchValue
+
     for pt in pts:
 
         linkIndex = pt[4]
@@ -192,7 +196,6 @@ def Set_Motor_For_Joint(bodyIndex,jointName,controlMode,targetPosition,maxForce)
         bodyIndex      = bodyIndex,
 
         jointIndex     = jointNamesToIndices[jointName],
-
         controlMode    = controlMode,
 
         targetPosition = targetPosition,
