@@ -7,3 +7,5 @@ BLphaseOffset = 0
 FLamplitude = numpy.pi / 6
 FLfrequency = 10
 FLphaseOffset = numpy.pi / 2
+
+numberOfGenerations = 2
