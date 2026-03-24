@@ -7,8 +7,11 @@ import time
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class SIMULATION:
-    def __init__(self):
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, directOrGUI):
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8,self.physicsClient)
 
@@ -19,15 +22,15 @@ class SIMULATION:
         self.robot.Prepare_To_Act()
 
     def Run(self):
-        for t in range(0, 1000):
+        for t in range(0, 5000):
             
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act(t)
-            time.sleep(1/2000)
+            # time.sleep(1/2000)
         
-            print(t)
+        # print(t)
 
     def __del__(self):
         p.disconnect()

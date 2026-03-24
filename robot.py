@@ -30,7 +30,7 @@ class ROBOT:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self, t):
-        print(self.motors.keys()) 
+        # print(self.motors.keys()) 
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
@@ -40,7 +40,7 @@ class ROBOT:
 
     def Think(self):
         self.nn.Update()
-        self.nn.Print()
+        # self.nn.Print()
 
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robotId,0)
@@ -48,4 +48,4 @@ class ROBOT:
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         f = open("fitness.txt", "w")
         f.write(str(xCoordinateOfLinkZero))
-        exit()
+        f.close()
