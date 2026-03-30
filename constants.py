@@ -9,3 +9,9 @@ FLfrequency = 10
 FLphaseOffset = numpy.pi / 2
 
 numberOfGenerations = 10
+populationSize = 10
+
+numSensorNeurons = 9
+numMotorNeurons = 8
+
+motorJointRange = 0.2

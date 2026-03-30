@@ -7,7 +7,8 @@ import time
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
 class SIMULATION:
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
+        self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
         else:
@@ -16,18 +17,20 @@ class SIMULATION:
         p.setGravity(0,0,-9.8,self.physicsClient)
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
         pyrosim.Prepare_To_Simulate(self.robot.robotId)
         self.robot.Prepare_To_Sense()
         self.robot.Prepare_To_Act()
 
     def Run(self):
-        for t in range(0, 5000):
+        for t in range(0, 1000):
             
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act(t)
+            if self.directOrGUI == "GUI":
+                time.sleep(1/2000)
             # time.sleep(1/2000)
         
         # print(t)
@@ -35,5 +38,5 @@ class SIMULATION:
     def __del__(self):
         p.disconnect()
 
-    def Get_Fitness(self):
-        self.robot.Get_Fitness()
+    def Get_Fitness(self, solutionID):
+        self.robot.Get_Fitness(solutionID)

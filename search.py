@@ -1,5 +1,5 @@
 import os
-from hillclimber import HILL_CLIMBER
+from parallelHillClimber import PARALLEL_HILL_CLIMBER
 
 """
 for _ in range(5):
@@ -7,5 +7,5 @@ for _ in range(5):
     os.system("python3 simulate.py")
 """
 
-hc = HILL_CLIMBER()
-hc.Evolve()
+phc = PARALLEL_HILL_CLIMBER()
+phc.Evolve()
