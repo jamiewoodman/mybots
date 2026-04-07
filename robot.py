@@ -46,11 +46,11 @@ class ROBOT:
         # self.nn.Print()
 
     def Get_Fitness(self, solutionID):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
         # f = open("fitness"+solutionID+".txt", "w")
         f = open("tmp"+solutionID+".txt", "w")
-        f.write(str(xCoordinateOfLinkZero))
+        f.write(str(xPosition))
         f.close()
         os.system("mv tmp"+solutionID+".txt fitness"+solutionID+".txt")
