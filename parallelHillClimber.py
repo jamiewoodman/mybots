@@ -18,12 +18,13 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID = self.nextAvailableID + 1
         
 
-    def Evolve(self):
+    def Evolve(self, showBest=True):
         
         self.Evaluate(self.parents)
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
-        self.Show_Best()
+        if showBest:
+            self.Show_Best()
         
         
 
