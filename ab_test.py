@@ -36,11 +36,15 @@ for run in range(numRuns):
         bestPHC = phc
 
 # Save average fitness curve
-avgCurve = np.mean(allFitnessCurves, axis=0)
 robotType = "quad"  # change to "octo" on octopod branch
-with open(f"{robotType}_fitness_curve.txt", "w") as f:
-    for val in avgCurve:
-        f.write(str(val) + "\n")
+for runIdx, curve in enumerate(allFitnessCurves):
+    with open(f"{robotType}_fitness_curve_run{runIdx}.txt", "w") as f:
+        for val in curve:
+            f.write(str(val) + "\n")
+
+with open(f"{robotType}_results.txt", "w") as f:
+    for fit in bestFitnesses:
+        f.write(str(fit) + "\n")
 
 # Save results
 print("\nResults:")
