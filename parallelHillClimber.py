@@ -2,12 +2,10 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import numpy
 
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-        """
-        self.parent = SOLUTION()
-        """
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
         os.system("rm body*.urdf")
@@ -15,34 +13,41 @@ class PARALLEL_HILL_CLIMBER:
         self.nextAvailableID = 0
         self.parents = {}
         self.fitnessOverGenerations = []
+        self.currentGeneration = 0
+
+        # p x g matrix to store ALL fitness values
+        self.fitnessMatrix = numpy.zeros((c.populationSize, c.numberOfGenerations))
+
         for i in range(c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
-            self.nextAvailableID = self.nextAvailableID + 1
-        
+            self.nextAvailableID += 1
 
     def Evolve(self, showBest=True):
         self.Evaluate(self.parents)
         for currentGeneration in range(c.numberOfGenerations):
+            self.currentGeneration = currentGeneration
             self.Evolve_For_One_Generation()
         if showBest:
             self.Show_Best()
-        
-        
 
     def Evolve_For_One_Generation(self):
-        
         self.Spawn()
-
         self.Mutate()
-
         self.Evaluate(self.children)
-
         self.Print()
-
         self.Select()
+
+        # Store each parent's fitness in the matrix
+        for i in self.parents:
+            self.fitnessMatrix[i, self.currentGeneration] = self.parents[i].fitness
+
         bestFitness = min(self.parents[i].fitness for i in self.parents)
         self.fitnessOverGenerations.append(bestFitness)
-        
+
+    def Save_Fitness_Matrix(self, robotType):
+        numpy.savetxt(robotType + "_fitness.txt", self.fitnessMatrix)
+        numpy.save(robotType + "_fitness.npy", self.fitnessMatrix)
+        print(f"Saved fitness matrix for {robotType}")
 
     def Spawn(self):
         self.children = {}
@@ -50,7 +55,6 @@ class PARALLEL_HILL_CLIMBER:
             self.children[i] = copy.deepcopy(self.parents[i])
             self.children[i].Set_ID(self.nextAvailableID)
             self.nextAvailableID += 1
-        
 
     def Mutate(self):
         for i in range(len(self.children)):
@@ -81,4 +85,3 @@ class PARALLEL_HILL_CLIMBER:
             solutions[i].Start_Simulation("DIRECT")
         for i in range(c.populationSize):
             solutions[i].Wait_For_Simulation_To_End()
-    
