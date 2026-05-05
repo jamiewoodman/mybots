@@ -48,7 +48,7 @@ class SOLUTION:
             time.sleep(0.01)
     
     def Generate_Body(self):
-        pyrosim.Start_URDF("body2.urdf")
+        pyrosim.Start_URDF("body" + str(self.myID) + ".urdf")
         
         # Torso
         pyrosim.Send_Cube(name="Torso", pos=[0,0,1], size=[1,4,1])
@@ -98,7 +98,7 @@ class SOLUTION:
         pyrosim.Send_Cube(name="Mid4LowerLeg", pos=[0,0,-0.5], size=[0.2,0.2,1])
 
         pyrosim.End()
-        while not os.path.exists("body2.urdf"):
+        while not os.path.exists("body" + str(self.myID) + ".urdf"):
             time.sleep(0.01)
         
 

@@ -10,9 +10,11 @@ class PARALLEL_HILL_CLIMBER:
         """
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
+        os.system("rm body*.urdf")
 
         self.nextAvailableID = 0
         self.parents = {}
+        self.fitnessOverGenerations = []
         for i in range(c.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID = self.nextAvailableID + 1
@@ -38,6 +40,8 @@ class PARALLEL_HILL_CLIMBER:
         self.Print()
 
         self.Select()
+        bestFitness = min(self.parents[i].fitness for i in self.parents)
+        self.fitnessOverGenerations.append(bestFitness)
         
 
     def Spawn(self):
